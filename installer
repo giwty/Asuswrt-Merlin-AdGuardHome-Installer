@@ -470,13 +470,7 @@ inst_AdGuardHome () {
     if [ "$REMOTE_VER" != "$LVERSION" ]; then
       PTXT "$INFO New ADGUARDHOME_VER=${REMOTE_VER} Available!" \
         "$INFO Updating ADGUARDHOME_VER=${LVERSION} to $REMOTE_VER ."
-      download_file "$BASE_DIR" 644 "https://static.adguard.com/adguardhome/release/${ADGUARD_TAR}"
-      tar xzv -C "$BASE_DIR" -f "${BASE_DIR}/${ADGUARD_TAR}"
-      if [ "$?" -ne 0 ]; then
-        PTXT "$ERROR Unable to download AdGuardHome package for your router"
-        end_op_message
-        return
-      fi
+      
       chown "$(nvram get http_username)":root ${TARG_DIR}/*
       rm -r "${BASE_DIR}/${ADGUARD_TAR}"
       chmod 755 "${TARG_DIR}/AdGuardHome"
@@ -485,13 +479,6 @@ inst_AdGuardHome () {
       PTXT "$INFO ADGUARDHOME_VER=${LVERSION}"
     fi
   else
-    download_file "$BASE_DIR" 644 "https://static.adguard.com/adguardhome/release/${ADGUARD_TAR}"
-    tar xzv -C "$BASE_DIR" -f "${BASE_DIR}/${ADGUARD_TAR}"
-    if [ "$?" -ne 0 ]; then
-      PTXT "$ERROR Unable to download AdGuardHome package for your router"
-      end_op_message
-      return
-    fi
       chown "$(nvram get http_username)":root ${TARG_DIR}/*
       rm -r "${BASE_DIR}/${ADGUARD_TAR}"
       chmod 755 "${TARG_DIR}/AdGuardHome"
